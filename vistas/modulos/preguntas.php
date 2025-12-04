@@ -1,6 +1,6 @@
 <?php
-    $preguntas=Pregunta::listarPreguntas('pregunta',NULL,NULL);
-    var_dump($preguntas);
+$preguntas = Pregunta::listarPreguntas('pregunta', NULL, NULL);
+//var_dump($preguntas);
 ?>
 <div class="content-wrapper">
     <div class="content-header">
@@ -27,51 +27,42 @@
                         <div class="card-body">
                             <div class="tab-content">
                                 <div class="active tab-pane" id="activity ">
+                                    <?php foreach ($preguntas as $pregunta): ?>
 
-                                    <div class="post clearfix">
-                                        <div class="user-block">
-                                            <img class="img-circle img-bordered-sm" src="vistas/dist/images/user.png" alt="Imagen de usuario">
-                                            <span class="username">
-                                                <a href="respuesta.html">titulo</a>
-                                                <p>Nombre Usuario</p>
-                                            </span>
-                                            <span class="description">Compartido públicamente - 15/05/2024</span>
+                                        <div class="post clearfix">
+                                            <div class="user-block">
+                                                <img class="img-circle img-bordered-sm" src="vistas/dist/images/user.png" alt="Imagen de usuario">
+                                                <span class="username">
+                                                    <a href="<?= BASE_URL ?>respuesta/<?= $pregunta['id_pregunta'] ?>"><?= $pregunta['titulo'] ?></a>
+                                                    <p><?= $pregunta['usuario'] ?></p>
+                                                </span>
+                                                <span class="description">Compartido públicamente - <?= $pregunta['creado_el']  ?></span>
+                                            </div>
+                                            <p>
+                                                <?= $pregunta['descripcion'] ?>
+                                            </p>
                                         </div>
-                                        <!-- /.user-block -->
-                                        <p>
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, iusto dolorum totam molestias necessitatibus cupiditate tempora, labore mollitia id deserunt inventore placeat saepe. Vel ipsum consequuntur esse ratione accusantium molestiae.
-                                        </p>
-
-                                    </div>
-
+                                    <?php endforeach; ?>
                                 </div>
 
                             </div>
-                            <!-- /.tab-content -->
                         </div>
                     </div>
-                    <!-- /.card -->
                 </div>
-                <!-- /.col-md-6 -->
                 <div class="col-lg-4">
 
                     <div class="card">
                         <div class="card-body">
-
-                            <a class="btn btn-primary btn-block" href="pregunta.html">
+                            <a class="btn btn-primary btn-block" href="<?= BASE_URL ?>pregunta">
                                 Preguntar
                             </a>
 
-
-                            <a class="btn btn-primary btn-block" href="login.html">
+                            <a class="btn btn-primary btn-block" href="<?= BASE_URL ?>login">
                                 Regístrese o inicie sesión para preguntar
                             </a>
-
                         </div>
                     </div>
-
                 </div>
-                <!-- /.col-md-6 -->
             </div>
         </div>
     </div>

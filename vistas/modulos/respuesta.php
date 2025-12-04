@@ -1,3 +1,10 @@
+<?php
+$pregunta = Pregunta::listarPreguntas('pregunta', 'id_pregunta', (explode('/', $_GET['ruta']))[1]);
+//var_dump($pregunta);
+$respuesta=Respuesta::listarRespuestaPregunta('respuesta','id_pregunta',(explode('/', $_GET['ruta']))[1]);
+var_dump($respuesta);
+
+?>
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container">
@@ -24,33 +31,27 @@
                             <div class="tab-content">
                                 <div class="active tab-pane" id="activity ">
                                     <!-- Post -->
-
                                     <div class="post">
                                         <div class="user-block">
-                                            <img class="img-circle img-bordered-sm" src="/vistas/dist/images/user.png" width="128px" alt="user image ">
+                                            <img class="img-circle img-bordered-sm" src="<?= BASE_URL ?>/vistas/dist/images/user.png" width="128px" alt="user image ">
                                             <span class="username">
-                                                <a href="#">Erro 500 que significa</a>
-                                                <p>Pedro Lopez</p>
+                                                <p><?= $pregunta['titulo'] ?></p>
+                                                <p><?= $pregunta['usuario'] ?></p>
                                             </span>
                                             <span class="description">Compartido públicamente -
-                                                15/12/2023 </span>
+                                                <?= $pregunta['creado_el'] ?> </span>
                                         </div>
-                                        <!-- /.user-block -->
                                         <p>
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere quas veritatis eum molestias assumenda cupiditate similique exercitationem? Ullam voluptatum nesciunt iusto quod iste, nulla, aliquam alias, id temporibus tenetur eligendi!
+                                            <?= $pregunta['descripcion'] ?>
                                         </p>
-                                        <img class="img-fluid pad" src="" alt="Photo">
-
+                                        <img class="img-fluid pad" src="<?= BASE_URL . $pregunta['foto'] ?>" alt="Foto">
                                     </div>
-                                    <!-- /.post -->
 
                                     <!-- Respuestas -->
-
-
                                     <h3> 5 Respuestas</h3>
                                     <hr>
                                     <div class="post clearfix">
-                                        <!-- /.user-block -->
+
                                         <p>
                                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere numquam ipsa, rerum, quo porro error eius quis itaque ea autem illum nihil aliquam suscipit accusantium? Incidunt vel fuga totam blanditiis.
                                         </p>
@@ -79,7 +80,6 @@
                                             </div>
                                         </div>
                                     </div>
-
 
                                     <div class="card card-primary card-outline">
                                         <div class="card-header">

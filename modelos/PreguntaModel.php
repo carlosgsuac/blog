@@ -1,18 +1,35 @@
 <?php
-    require_once'Conexion.php';
+require_once 'Conexion.php';
 
-    class PreguntaModel{
-        static public function listar($tabla,$columna,$valor){
-            if($columna==NULL){
-                $stmt=Conexion::conectar()->prepare("SELECT * FROM $tabla");
-                $stmt->execute();
-                return $stmt->fetchAll();
-            }else{
-                $stmt=Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $columna=:$columna");
-                $stmt->bindParam(":".$columna,$valor,PDO::PARAM_INT);
-                $stmt->execute();
-                return $stmt->fetch();
-            }
+class PreguntaModel
+{
+    static public function listar($tabla, $columna, $valor)
+    {
+        if ($columna == NULL) {
+            $stmt = Conexion::conectar()->prepare("SELECT p.*,CONCAT_WS(' ',pe.nombre,pe.paterno,pe.materno) AS usuario
+                FROM $tabla p JOIN usuario u ON p.id_usuario=u.id_usuario
+                JOIN persona pe ON u.id_usuario=pe.id_persona order by creado_el desc");
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } else {
+            $stmt = Conexion::conectar()->prepare("SELECT p.*,CONCAT_WS(' ',pe.nombre,pe.paterno,pe.materno) AS usuario
+            FROM $tabla p JOIN usuario u ON p.id_usuario=u.id_usuario
+            JOIN persona pe ON u.id_usuario=pe.id_persona
+            WHERE $columna=:$columna");
+            $stmt->bindParam(":" . $columna, $valor, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch();
         }
     }
-?>
+
+    static public function guardarPregunta($tabla, $datos)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(titulo,descripcion,foto,id_usuario) VALUES(:titulo,:descripcion,:foto,:id_usuario)");
+
+        $stmt->bindParam(":titulo", $datos['titulo'], PDO::PARAM_STR);
+        $stmt->bindParam(":descripcion", $datos['descripcion'], PDO::PARAM_STR);
+        $stmt->bindParam(":foto", $datos['foto'], PDO::PARAM_STR);
+        $stmt->bindParam(":id_usuario", $datos['id_usuario'], PDO::PARAM_INT);
+        return $stmt->execute(); //devuelve true o false
+    }
+}
