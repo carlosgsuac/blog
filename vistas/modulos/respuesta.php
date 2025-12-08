@@ -1,8 +1,8 @@
 <?php
 $pregunta = Pregunta::listarPreguntas('pregunta', 'id_pregunta', (explode('/', $_GET['ruta']))[1]);
 //var_dump($pregunta);
-$respuesta=Respuesta::listarRespuestaPregunta('respuesta','id_pregunta',(explode('/', $_GET['ruta']))[1]);
-var_dump($respuesta);
+$respuesta = Respuesta::listarRespuestaPregunta('respuesta', 'id_pregunta', (explode('/', $_GET['ruta']))[1]);
+//var_dump($respuesta);
 
 ?>
 <div class="content-wrapper">
@@ -44,21 +44,25 @@ var_dump($respuesta);
                                         <p>
                                             <?= $pregunta['descripcion'] ?>
                                         </p>
-                                        <img class="img-fluid pad" src="<?= BASE_URL . $pregunta['foto'] ?>" alt="Foto">
+                                        <img class="img-fluid pad" src="<?= BASE_URL . $pregunta['foto'] ?>" alt="FotoPregunta">
                                     </div>
 
                                     <!-- Respuestas -->
-                                    <h3> 5 Respuestas</h3>
+                                    <?php if(count($respuesta)>0): ?>
+                                    <h3> <?= count($respuesta) ?> Respuestas</h3>
                                     <hr>
+                                    <?php foreach ($respuesta as $key=> $res): ?>
                                     <div class="post clearfix">
-
+                                        <p><strong>Respuesta: <?= ($key+1) ?></strong></p>
                                         <p>
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere numquam ipsa, rerum, quo porro error eius quis itaque ea autem illum nihil aliquam suscipit accusantium? Incidunt vel fuga totam blanditiis.
+                                            <?= $res['descripcion'] ?>
                                         </p>
 
+                                        <?php if($res['foto']!=""): ?>
                                         <div class="border float-right ml-5 p-1  mb-2">
-                                            <img class="img-fluid pad" src="" alt="respuesta">
+                                            <img class="img-fluid pad" src="<?= BASE_URL . $res['foto'] ?>" alt="Imagen respuesta">
                                         </div>
+                                        <?php endif; ?>
 
                                         <div class="row d-flex justify-content-end">
                                             <div class="col-md-6">
@@ -70,28 +74,31 @@ var_dump($respuesta);
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="user-block">
-                                                    <img class="img-circle img-bordered-sm" src="vistas/dist/images/user.png" alt="User Image" />
+                                                    <img class="img-circle img-bordered-sm" src="<?= BASE_URL ?>vistas/dist/images/user.png" alt="User Image" />
                                                     <span class="username">
-                                                        /<small class="text-sm text-muted">Respondido el 15/07/2023 por:</small>/
-                                                        <p>Pablo Marmol</p>
+                                                        <small class="text-sm text-muted">Respondido el <?= $res['creado_el']?> por:</small>
+                                                        <p><?= $res['usuario']?></p>
                                                     </span>
-
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <h3>No hay respuestas para esta pregunta</h3>
+                                    <?php endif; ?>
 
                                     <div class="card card-primary card-outline">
                                         <div class="card-header">
                                             <h3 class="card-title">Tu respuesta</h3>
                                         </div>
-                                        <!-- /.card-header -->
+                                        <!-- Formulario -->
                                         <form method="POST" enctype="multipart/form-data">
                                             <div class="card-body">
                                                 <h5>Escribe tu respuesta:</h5>
                                                 <div class="form-group">
-                                                    <input type="hidden" name="id_pregunta" id="id_pregunta" value="<?= $id_pregunta ?>">
-                                                    <textarea name="descripcion_respuesta" id="descripcion_respuesta" class="form-control" rows="5" required></textarea>
+                                                    <input type="hidden" name="id_pregunta" value="<?= (explode('/', $_GET['ruta']))[1] ?>">
+                                                    <textarea name="descripcion" id="descripcion_respuesta" class="form-control" rows="5" required></textarea>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="btn btn-default btn-file">
@@ -100,14 +107,16 @@ var_dump($respuesta);
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- /.card-body -->
+
                                             <div class="card-footer">
                                                 <div class="float-right">
                                                     <button type="submit" class="btn btn-primary"> Publicar tu respuesta</button>
                                                 </div>
                                             </div>
-                                            <!-- /.card-footer -->
-
+                                            <?php
+                                                $res = new Respuesta();
+                                                $res->guardarRespuesta();
+                                            ?>
                                         </form>
                                     </div>
 

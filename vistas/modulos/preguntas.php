@@ -31,7 +31,7 @@ $preguntas = Pregunta::listarPreguntas('pregunta', NULL, NULL);
 
                                         <div class="post clearfix">
                                             <div class="user-block">
-                                                <img class="img-circle img-bordered-sm" src="vistas/dist/images/user.png" alt="Imagen de usuario">
+                                                <img class="img-circle img-bordered-sm" src="<?= BASE_URL ?>vistas/dist/images/user.png" alt="Imagen de usuario">
                                                 <span class="username">
                                                     <a href="<?= BASE_URL ?>respuesta/<?= $pregunta['id_pregunta'] ?>"><?= $pregunta['titulo'] ?></a>
                                                     <p><?= $pregunta['usuario'] ?></p>
