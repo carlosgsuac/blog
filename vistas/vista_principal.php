@@ -1,4 +1,5 @@
 <?php
+session_start();
 $rutas = ['login', 'perfil', 'pregunta', 'preguntas', 'registro', 'respuesta','prueba'];
 
 //$ruta = explode('/',$_GET['ruta']);
