@@ -12,5 +12,5 @@
 
     $vista=new VistaPrincipal();
     $vista->cargarVista();
-    //CGS
+    //Carlos Guisbert Salazar 2025
 ?>
