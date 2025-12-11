@@ -37,20 +37,22 @@
                  </div>
                  <div class="row">
                      <!-- <div class="col-8">
-                  <div class="icheck-primary">
+                    <div class="icheck-primary">
                     <input type="checkbox" id="remember" />
                     <label for="remember"> Recordarme </label>
-                  </div>
-                </div> -->
+                    </div>
+                    </div> -->
                      <div class="col-12 mt-1">
                          <button type="submit" class="btn btn-primary btn-block">
                              Ingresar
                          </button>
                      </div>
                  </div>
-
+                 <?php
+                    $login = new Usuario();
+                    $login->login();
+                    ?>
              </form>
-
              <p class="mb-1 mt-4 text-center">
                  <a href="/"> Volver a Inicio</a>
              </p>

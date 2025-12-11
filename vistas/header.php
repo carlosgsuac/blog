@@ -1,6 +1,6 @@
  <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
      <div class="container">
-         <a href="<?= BASE_URL?>" class="navbar-brand">
+         <a href="<?= BASE_URL ?>" class="navbar-brand">
              <!-- <img src="vistas/dist/images/logo.png" alt="logo" class="brand-image img-circle elevation-3" width="50" style="opacity: 0.8" /> -->
              <span class="brand-text font-weight-light">Consultas PSG</span>
          </a>
@@ -13,7 +13,7 @@
              <!-- Left navbar links -->
              <ul class="navbar-nav">
                  <li class="nav-item">
-                     <a href="<?= BASE_URL?>" class="nav-link">Inicio</a>
+                     <a href="<?= BASE_URL ?>" class="nav-link">Inicio</a>
                  </li>
                  <li class="nav-item">
                      <a href="#" class="nav-link">Perfil</a>
@@ -30,20 +30,21 @@
          <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
              <li class="nav-item dropdown"></li>
 
-             <a href="" class="btn btn-outline-primary btn-sm">
-                 Iniciar sesión
-             </a>
-             <a href="<?= BASE_URL?>registro" class="btn btn-primary btn-sm ml-1">Regístrate</a>
+             <?php if (! isset($_SESSION['id'])): ?>
+                 <a href="<?= BASE_URL ?>login" class="btn btn-outline-primary btn-sm">
+                     Iniciar sesión
+                 </a>
+                 <a href="<?= BASE_URL ?>registro" class="btn btn-primary btn-sm ml-1">Regístrate</a>
 
-
-             <div class="image">
-                 <img src="<?= BASE_URL ?>vistas/dist/images/user.png" class="img-circle" width="30" alt="Imagen de usuario">
-             </div>
-             <?= $_SESSION['nombre'].' '.$_SESSION['paterno'] ?>
-             <a href="salir" class="btn btn-outline-danger ml-1 btn-sm">
-                 salir
-             </a>
-
+             <?php else: ?>
+                 <div class="image">
+                     <img src="<?= BASE_URL ?>vistas/dist/images/user.png" class="img-circle" width="30" alt="Imagen de usuario">
+                 </div>
+                 <?= $_SESSION['nombre'] . ' ' . $_SESSION['paterno'] ?>
+                 <a href="salir" class="btn btn-outline-danger ml-1 btn-sm">
+                     salir
+                 </a>
+             <?php endif; ?>
 
          </ul>
      </div>
